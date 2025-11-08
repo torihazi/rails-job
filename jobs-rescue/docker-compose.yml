@@ -6,7 +6,17 @@ services:
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
     volumes:
       - .:/app
+    environment:
+      - REDIS_URL=redis://redis:6379/0
     ports:
       - "3000:3000"
     stdin_open: true
     tty: true
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+      
