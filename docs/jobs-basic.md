@@ -54,3 +54,15 @@ job を使用したい。job を使用するためには何が必要なのかな
 retry_on でリトライが可能で、例外で振り分けることが可能。
 discard_on で捨てることが可能、そのエラーになったら以降処理はされずに終わる
 また 1 つのクラスに retry_on と disacrd_on があった場合、下に書いていた方が優先される。
+
+before_perform とか arround_perform とかあるけど、多分これやるくらいなら使わない方が良いと思う
+
+retry_on とかは使えると思う。
+
+retry_on
+rails v7.0 以前 :exponentially_longer
+以降 polynomially_longer
+
+基本は perform_later で、あと引数か。
+
+それ以外はキュー名の設定、priority、backend 設定、ビジネスロジック、retry_on とかの設定だ。
