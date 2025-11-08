@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   get "first_user", to: "user#first_user"
   get "remind", to: "remind#remind"
   get "retry", to: "retry#retry"
+  get "logging", to: "logging#logging"
 end
