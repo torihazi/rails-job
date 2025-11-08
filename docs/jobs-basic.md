@@ -50,3 +50,7 @@ job を使用したい。job を使用するためには何が必要なのかな
 とにかく generator を使用するなら rails g job "job 名"
 こうすることで app/jobs 配下に job 名\_job.rb ができる
 なお rails g job "ディレクトリ/job 名"とすることもできる
+
+retry_on でリトライが可能で、例外で振り分けることが可能。
+discard_on で捨てることが可能、そのエラーになったら以降処理はされずに終わる
+また 1 つのクラスに retry_on と disacrd_on があった場合、下に書いていた方が優先される。

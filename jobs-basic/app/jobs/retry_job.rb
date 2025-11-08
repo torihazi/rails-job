@@ -1,24 +1,24 @@
 class RetryJob < ApplicationJob
   queue_as :default
 
-  def perform(id:)
+  retry_on StandardError, wait: :exponentially_longer, attempts: 3
+
+  def perform()
+    id = rand(1..10)
     result = process_data(id: id)
-    if result[:success] == false
-      raise StandardError, "Data processing failed"
-    end
     puts "Data processed successfully with id: #{id}"
 
   rescue StandardError => e
-    puts "Error_puts: #{e.message}"
+    puts "Error_puts: #{e.message}, id: #{id}"
     Rails.logger.error "Error: #{e.message}"
     raise e
   end
 
   def process_data(id:)
-    if id.even?
-      { success: true, message: "Data processed successfully" }
+    if id < 6
+      raise StandardError, "Data processing failed"
     else
-      { success: false, message: "Data processing failed" }
+      { success: true, message: "Data processed successfully" }
     end
   end
 end
